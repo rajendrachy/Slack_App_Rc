@@ -4,7 +4,7 @@ import { ENV } from "./src/config/env.js";
 Sentry.init({
   dsn: ENV.SENTRY_DSN,
   tracesSampleRate: 1.0,
-  profilesSampleRate: 1.0,
+  // profilesSampleRate: 1.0, // Disabled: V8 Profiling consumes too much memory for Render's 512MB limit
   environment: ENV.NODE_ENV || "development",
   includeLocalVariables: true,
 
