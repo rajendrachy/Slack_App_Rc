@@ -1,5 +1,4 @@
 import { XIcon, LockIcon, HashIcon, UsersIcon, CalendarIcon, InfoIcon } from "lucide-react";
-import { format } from "date-fns";
 
 function ChannelInfoModal({ channel, onClose }) {
   const memberCount = Object.keys(channel.state.members).length;
@@ -57,7 +56,9 @@ function ChannelInfoModal({ channel, onClose }) {
                 <CalendarIcon className="w-4 h-4 text-zinc-400" />
                 <div>
                   <span className="info-label">Created</span>
-                  <span className="info-value">{format(createdAt, "MMMM d, yyyy")}</span>
+                  <span className="info-value">
+                    {createdAt.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                  </span>
                 </div>
               </div>
             )}

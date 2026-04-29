@@ -68,6 +68,42 @@ body {
   flex-direction: column !important;
 }
 
+/* Mobile Responsiveness for Layout */
+@media (max-width: 768px) {
+  .flex-row-fill {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .sidebar-premium {
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 10;
+    transition: transform 0.3s ease;
+  }
+  
+  .main-content-premium {
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 5;
+  }
+
+  /* When a channel is active, hide the sidebar by translating it */
+  .has-active-channel .sidebar-premium {
+    transform: translateX(-100%);
+  }
+  
+  .has-active-channel .main-content-premium {
+    z-index: 20;
+  }
+}
+
 /* Auth Page Custom CSS */
 .auth-wrapper-v2 {
   height: 100vh;
