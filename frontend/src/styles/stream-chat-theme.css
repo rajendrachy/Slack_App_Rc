@@ -1,4 +1,4 @@
-/* Premium Slap Theme for Stream Chat */
+/* Premium Nexus Theme for Stream Chat */
 
 :root {
   --str-chat__primary-color: var(--primary);
@@ -118,19 +118,21 @@
 
 /* Channel List Items */
 .channel-preview-item {
-  padding: 0.5rem 1rem;
-  margin: 0.125rem 0.5rem;
-  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  margin: 0.1rem 0.5rem;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.15s ease-in-out;
   display: flex;
   align-items: center;
   gap: 0.75rem;
   color: var(--text-muted);
+  border: none;
+  background: transparent;
 }
 
 .channel-preview-item:hover {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-main);
 }
 

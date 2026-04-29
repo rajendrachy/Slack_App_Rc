@@ -96,38 +96,37 @@ const UsersList = ({ activeChannel }) => {
       
       <style>{`
         .users-list-container {
-          padding-top: 0.5rem;
+          padding-bottom: 1rem;
         }
         .user-list-item {
           display: flex;
           align-items: center;
-          gap: 0.85rem;
+          gap: 0.75rem;
           width: calc(100% - 1rem);
-          margin: 0.125rem 0.5rem;
-          padding: 0.6rem 0.75rem;
-          border-radius: 8px;
+          margin: 0.1rem 0.5rem;
+          padding: 0.4rem 0.75rem;
+          border-radius: 6px;
           cursor: pointer;
-          transition: all 0.2s ease;
-          border: 1px solid transparent;
+          transition: all 0.15s ease-in-out;
+          border: none;
+          background: transparent;
           text-align: left;
         }
         .user-list-item:hover {
-          background: rgba(255, 255, 255, 0.03);
-          border-color: rgba(255, 255, 255, 0.05);
+          background: rgba(255, 255, 255, 0.05);
         }
         .user-list-item.active {
           background: var(--primary);
           color: white;
-          box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
         .user-avatar-wrapper {
           position: relative;
           display: flex;
         }
         .user-avatar, .user-avatar-placeholder {
-          width: 24px;
-          height: 24px;
-          border-radius: 6px;
+          width: 20px;
+          height: 20px;
+          border-radius: 4px;
         }
         .user-avatar-placeholder {
           background: var(--bg-card);
@@ -135,7 +134,7 @@ const UsersList = ({ activeChannel }) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 0.75rem;
+          font-size: 0.65rem;
           font-weight: 700;
           border: 1px solid var(--border);
         }
@@ -143,8 +142,8 @@ const UsersList = ({ activeChannel }) => {
           position: absolute;
           bottom: -2px;
           right: -2px;
-          width: 10px;
-          height: 10px;
+          width: 8px;
+          height: 8px;
           border-radius: 50%;
           border: 2px solid var(--bg-sidebar);
         }
@@ -152,30 +151,33 @@ const UsersList = ({ activeChannel }) => {
           background: #22c55e;
         }
         .status-indicator.offline {
-          background: #71717a;
+          background: transparent;
+          border-color: #71717a;
         }
         .user-name-text {
           flex: 1;
-          font-size: 0.95rem;
-          font-weight: 600;
+          font-size: 0.9rem;
+          font-weight: 500;
           color: var(--text-muted);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
+        .user-list-item:hover .user-name-text {
+          color: var(--text-main);
+        }
         .active .user-name-text {
           color: white;
+          font-weight: 600;
         }
         .loading-state, .error-state, .empty-state {
-          padding: 1.5rem;
-          margin: 0.5rem;
+          padding: 0.4rem 1.25rem;
           font-size: 0.85rem;
           color: var(--text-muted);
-          text-align: center;
-          background: rgba(255, 255, 255, 0.02);
-          border: 1px dashed rgba(255, 255, 255, 0.05);
-          border-radius: 12px;
-          font-weight: 500;
+          text-align: left;
+          font-weight: 400;
+          opacity: 0.8;
+          font-style: italic;
         }
       `}</style>
     </div>

@@ -1,6 +1,8 @@
-import { XIcon, LockIcon, HashIcon, UsersIcon, CalendarIcon, InfoIcon } from "lucide-react";
+import { XIcon, LockIcon, HashIcon, UsersIcon, CalendarIcon, InfoIcon, TrashIcon } from "lucide-react";
+import { useChatContext } from "stream-chat-react";
 
 function ChannelInfoModal({ channel, onClose }) {
+  const { client } = useChatContext();
   const memberCount = Object.keys(channel.state.members).length;
   const createdAt = channel.data?.created_at ? new Date(channel.data.created_at) : null;
   const isPrivate = channel.data?.private;
@@ -9,6 +11,31 @@ function ChannelInfoModal({ channel, onClose }) {
   // In a DM, the channel ID is usually a combination of user IDs, not a real name.
   // We handle DM name differently if needed, but usually channel info is for groups.
   const channelName = channel.data?.name || channel.data?.id;
+
+  // Check if current user has permission to delete the channel
+  const currentUserRole = channel.state.members[client.userID]?.role;
+  const canDelete = currentUserRole === "owner" || currentUserRole === "admin" || channel.data?.created_by?.id === client.userID;
+
+  const handleDeleteChannel = async () => {
+    const isConfirmed = window.confirm(`Are you sure you want to delete the channel "${channelName}"? This action cannot be undone and will permanently delete all message history.`);
+    
+    if (isConfirmed) {
+      try {
+        await channel.delete();
+        
+        // Update URL to remove channel param
+        const url = new URL(window.location);
+        url.searchParams.delete('channel');
+        window.history.pushState({}, '', url);
+        window.dispatchEvent(new Event('popstate'));
+        
+        onClose();
+      } catch (error) {
+        console.error("Failed to delete channel:", error);
+        alert("Failed to delete channel. You might not have the correct permissions.");
+      }
+    }
+  };
 
   return (
     <div className="create-channel-modal-overlay">
@@ -63,6 +90,15 @@ function ChannelInfoModal({ channel, onClose }) {
               </div>
             )}
           </div>
+
+          {canDelete && !isDM && (
+            <div className="danger-zone">
+              <button onClick={handleDeleteChannel} className="delete-channel-btn">
+                <TrashIcon className="w-4 h-4" />
+                <span>Delete Channel</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* INLINE STYLES FOR SPECIFIC MODAL (using existing global classes where possible) */}
@@ -120,6 +156,34 @@ function ChannelInfoModal({ channel, onClose }) {
           .info-value {
             font-size: 0.95rem;
             color: var(--text-main);
+          }
+          .danger-zone {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--border);
+            display: flex;
+            justify-content: center;
+          }
+          .delete-channel-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            justify-content: center;
+          }
+          .delete-channel-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            transform: translateY(-1px);
           }
         `}</style>
       </div>

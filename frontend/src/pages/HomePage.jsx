@@ -58,7 +58,7 @@ const HomePage = () => {
           <div className="flex items-center justify-between p-6 border-b border-[#27272a]">
             <div className="brand-container">
               <img src="/logo-new.png" alt="Logo" className="brand-logo" />
-              <span className="brand-name text-white">Slap</span>
+              <span className="brand-name text-white">Nexus</span>
             </div>
             <div className="user-button-wrapper">
               <UserButton />

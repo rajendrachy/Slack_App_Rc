@@ -4,7 +4,7 @@ const AuthPage = () => {
   return (
     <div className="auth-wrapper-v2">
       <div className="auth-card-glass">
-        <img src="/logo-new.png" alt="Slap" className="auth-logo" />
+        <img src="/logo-new.png" alt="Nexus" className="auth-logo" />
         
         <h1 className="auth-title">
           Connect <br /> 
