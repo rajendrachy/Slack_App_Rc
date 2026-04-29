@@ -5,6 +5,8 @@ import { useUser } from "@clerk/clerk-react";
 import MembersModal from "./MembersModal";
 import PinnedMessagesModal from "./PinnedMessagesModal";
 import InviteModal from "./InviteModal";
+import ChannelInfoModal from "./ChannelInfoModal";
+import { ChevronLeftIcon } from "lucide-react";
 
 const CustomChannelHeader = () => {
   const { channel } = useChannelStateContext();
@@ -15,6 +17,7 @@ const CustomChannelHeader = () => {
   const [showInvite, setShowInvite] = useState(false);
   const [showMembers, setShowMembers] = useState(false);
   const [showPinnedMessages, setShowPinnedMessages] = useState(false);
+  const [showChannelInfo, setShowChannelInfo] = useState(false);
   const [pinnedMessages, setPinnedMessages] = useState([]);
 
   const otherUser = Object.values(channel.state.members).find(
@@ -41,6 +44,20 @@ const CustomChannelHeader = () => {
   return (
     <div className="header-container">
       <div className="header-left">
+        <button 
+          className="mobile-back-btn" 
+          onClick={() => {
+            // Update URL to remove channel param
+            const url = new URL(window.location);
+            url.searchParams.delete('channel');
+            window.history.pushState({}, '', url);
+            // We dispatch a popstate event so the HomePage can detect URL changes 
+            // if we use a different state mechanism it would be better, but URL is the source of truth here.
+            window.dispatchEvent(new Event('popstate'));
+          }}
+        >
+          <ChevronLeftIcon className="size-5" />
+        </button>
         <div className="channel-info">
           {channel.data?.private ? (
             <LockIcon className="channel-icon-sm text-amber-400" />
@@ -88,7 +105,7 @@ const CustomChannelHeader = () => {
             <PinIcon className="size-4" />
           </button>
 
-          <button className="action-icon-btn" title="Channel Info">
+          <button className="action-icon-btn" onClick={() => setShowChannelInfo(true)} title="Channel Info">
             <InfoIcon className="size-4" />
           </button>
 
@@ -111,6 +128,13 @@ const CustomChannelHeader = () => {
         <PinnedMessagesModal
           pinnedMessages={pinnedMessages}
           onClose={() => setShowPinnedMessages(false)}
+        />
+      )}
+
+      {showChannelInfo && (
+        <ChannelInfoModal
+          channel={channel}
+          onClose={() => setShowChannelInfo(false)}
         />
       )}
 
@@ -174,6 +198,17 @@ const CustomChannelHeader = () => {
           display: flex;
           align-items: center;
           gap: 1.5rem;
+        }
+        .mobile-back-btn {
+          display: none; /* hidden on desktop */
+          align-items: center;
+          justify-content: center;
+          background: transparent;
+          border: none;
+          color: var(--text-muted);
+          padding: 0.25rem;
+          margin-right: 0.25rem;
+          cursor: pointer;
         }
         .search-bar-mini {
           background: var(--bg-card);
@@ -241,6 +276,35 @@ const CustomChannelHeader = () => {
           font-size: 0.85rem;
           font-weight: 600;
           margin-left: 0.5rem;
+        }
+
+        /* Mobile Responsiveness for Header */
+        @media (max-width: 768px) {
+          .header-container {
+            padding: 0 0.75rem;
+          }
+          .mobile-back-btn {
+            display: flex; /* show on mobile */
+          }
+          .search-bar-mini {
+            display: none; /* hide search on mobile to save space */
+          }
+          .header-right {
+            gap: 0.5rem;
+          }
+          .header-action-btn span {
+            display: none; /* Hide member count text on mobile */
+          }
+          .channel-name {
+            max-width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .invite-pill {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+          }
         }
       `}</style>
     </div>

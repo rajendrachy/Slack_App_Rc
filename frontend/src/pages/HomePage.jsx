@@ -29,13 +29,21 @@ const HomePage = () => {
 
   // set active channel from URL params
   useEffect(() => {
-    if (chatClient) {
+    const handleUrlChange = () => {
       const channelId = searchParams.get("channel");
-      if (channelId) {
+      if (channelId && chatClient) {
         const channel = chatClient.channel("messaging", channelId);
         setActiveChannel(channel);
+      } else {
+        setActiveChannel(null);
       }
-    }
+    };
+
+    handleUrlChange();
+
+    // Listen for custom popstate if dispatched manually or back button
+    window.addEventListener('popstate', handleUrlChange);
+    return () => window.removeEventListener('popstate', handleUrlChange);
   }, [chatClient, searchParams]);
 
   // todo: handle this with a better component
@@ -43,7 +51,7 @@ const HomePage = () => {
   if (isLoading || !chatClient) return <PageLoader />;
 
   return (
-    <div className="flex-row-fill">
+    <div className={`flex-row-fill ${activeChannel ? 'has-active-channel' : ''}`}>
       <Chat client={chatClient} theme="str-chat__theme-dark">
         <div className="sidebar-premium">
           {/* HEADER */}
