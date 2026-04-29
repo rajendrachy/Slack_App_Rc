@@ -33,7 +33,7 @@ Sentry.setupExpressErrorHandler(app);
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(ENV.PORT, () => {
+    app.listen(ENV.PORT, "0.0.0.0", () => {
       console.log("Server started on port:", ENV.PORT);
     });
   } catch (error) {

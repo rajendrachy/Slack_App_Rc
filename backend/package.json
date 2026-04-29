@@ -1,10 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "engines": {
+    "node": "20.x"
+  },
   "main": "src/server.js",
   "scripts": {
     "dev": "NODE_OPTIONS='--import ./instrument.mjs' nodemon src/server.js",
-    "start": "NODE_OPTIONS='--import ./instrument.mjs' node src/server.js"
+    "start": "NODE_OPTIONS='--max-old-space-size=400 --import ./instrument.mjs' node src/server.js"
   },
   "keywords": [],
   "author": "",
