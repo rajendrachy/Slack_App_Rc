@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BarChart3Icon, CheckIcon } from "lucide-react";
+import { BarChart3, Check } from "lucide-react";
 import { useChatContext, useMessageContext } from "stream-chat-react";
 import toast from "react-hot-toast";
 
@@ -57,7 +57,7 @@ const PollMessage = () => {
   return (
     <div className="poll-container my-2 p-4 bg-zinc-900/50 rounded-2xl border border-zinc-800 max-w-sm">
       <div className="flex items-center gap-2 mb-4">
-        <BarChart3Icon className="size-4 text-primary" />
+        <BarChart3 className="size-4 text-primary" />
         <h4 className="font-bold text-sm text-white">{pollData.question}</h4>
       </div>
 
@@ -85,7 +85,7 @@ const PollMessage = () => {
               <div className="relative flex justify-between items-center gap-2 z-10">
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-zinc-100">{option}</span>
-                  {isSelected && <CheckIcon className="size-3 text-primary" />}
+                  {isSelected && <Check className="size-3 text-primary" />}
                 </div>
                 <span className="text-xs font-bold text-zinc-500 group-hover:text-zinc-300">
                   {percentage}%

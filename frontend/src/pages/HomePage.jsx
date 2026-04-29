@@ -14,7 +14,7 @@ import {
   Window,
 } from "stream-chat-react";
 
-import { HashIcon, PlusIcon, UsersIcon, SettingsIcon } from "lucide-react";
+import { Hash, Plus, Users, Settings } from "lucide-react";
 import CreateChannelModal from "../components/CreateChannelModal";
 import CustomChannelPreview from "../components/CustomChannelPreview";
 import UsersList from "../components/UsersList";
@@ -73,7 +73,7 @@ const HomePage = () => {
           <div className="flex-1 overflow-y-auto">
             <div className="create-channel-section">
               <button onClick={() => setIsCreateModalOpen(true)} className="create-channel-btn">
-                <PlusIcon className="size-4" />
+                <Plus className="size-4" />
                 <span>New Channel</span>
               </button>
             </div>
@@ -91,7 +91,7 @@ const HomePage = () => {
               List={({ children, loading, error }) => (
                 <>
                   <div className="section-title section-header">
-                    <HashIcon className="size-3.5 inline mr-2" />
+                    <Hash className="size-3.5 inline mr-2" />
                     <span>Channels</span>
                   </div>
                   {loading && <div className="px-6 py-2 text-xs text-zinc-500">Syncing...</div>}
@@ -99,7 +99,7 @@ const HomePage = () => {
 
                   <div className="section-title section-header flex justify-between items-center pr-2">
                     <div className="flex items-center">
-                      <UsersIcon className="size-3.5 inline mr-2" />
+                      <Users className="size-3.5 inline mr-2" />
                       <span>Direct Messages</span>
                     </div>
                     <button 
@@ -107,7 +107,7 @@ const HomePage = () => {
                       className="text-zinc-500 hover:text-white transition-colors"
                       title="Manage Account"
                     >
-                      <SettingsIcon className="size-3.5" />
+                      <Settings className="size-3.5" />
                     </button>
                   </div>
                   <UsersList activeChannel={activeChannel} />

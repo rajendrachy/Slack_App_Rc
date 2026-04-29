@@ -1,4 +1,4 @@
-import { XIcon, LockIcon, HashIcon, UsersIcon, CalendarIcon, InfoIcon, TrashIcon } from "lucide-react";
+import { X, Lock, Hash, Users, Calendar, Info, Trash } from "lucide-react";
 import { useChatContext } from "stream-chat-react";
 
 function ChannelInfoModal({ channel, onClose }) {
@@ -44,7 +44,7 @@ function ChannelInfoModal({ channel, onClose }) {
         <div className="create-channel-modal__header">
           <h2>Channel Info</h2>
           <button onClick={onClose} className="create-channel-modal__close">
-            <XIcon className="w-5 h-5" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
@@ -53,9 +53,9 @@ function ChannelInfoModal({ channel, onClose }) {
           <div className="info-section">
             <div className="info-avatar">
               {isPrivate ? (
-                <LockIcon className="w-8 h-8 text-amber-400" />
+                <Lock className="w-8 h-8 text-amber-400" />
               ) : (
-                <HashIcon className="w-8 h-8 text-indigo-400" />
+                <Hash className="w-8 h-8 text-indigo-400" />
               )}
             </div>
             <h3 className="info-channel-name">{channelName}</h3>
@@ -63,7 +63,7 @@ function ChannelInfoModal({ channel, onClose }) {
 
           <div className="info-details">
             <div className="info-item">
-              <UsersIcon className="w-4 h-4 text-zinc-400" />
+              <Users className="w-4 h-4 text-zinc-400" />
               <div>
                 <span className="info-label">Members</span>
                 <span className="info-value">{memberCount} member{memberCount !== 1 ? 's' : ''}</span>
@@ -71,7 +71,7 @@ function ChannelInfoModal({ channel, onClose }) {
             </div>
 
             <div className="info-item">
-              <InfoIcon className="w-4 h-4 text-zinc-400" />
+              <Info className="w-4 h-4 text-zinc-400" />
               <div>
                 <span className="info-label">Privacy</span>
                 <span className="info-value">{isPrivate ? "Private Channel" : "Public Channel"}</span>
@@ -80,7 +80,7 @@ function ChannelInfoModal({ channel, onClose }) {
 
             {createdAt && (
               <div className="info-item">
-                <CalendarIcon className="w-4 h-4 text-zinc-400" />
+                <Calendar className="w-4 h-4 text-zinc-400" />
                 <div>
                   <span className="info-label">Created</span>
                   <span className="info-value">
@@ -94,7 +94,7 @@ function ChannelInfoModal({ channel, onClose }) {
           {canDelete && !isDM && (
             <div className="danger-zone">
               <button onClick={handleDeleteChannel} className="delete-channel-btn">
-                <TrashIcon className="w-4 h-4" />
+                <Trash className="w-4 h-4" />
                 <span>Delete Channel</span>
               </button>
             </div>

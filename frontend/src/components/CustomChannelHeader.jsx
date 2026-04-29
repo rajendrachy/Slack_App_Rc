@@ -1,4 +1,4 @@
-import { HashIcon, LockIcon, UsersIcon, PinIcon, VideoIcon, SearchIcon, InfoIcon } from "lucide-react";
+import { Hash, Lock, Users, Pin, Video, Search, Info } from "lucide-react";
 import { useChannelStateContext } from "stream-chat-react";
 import { useState } from "react";
 import { useUser } from "@clerk/clerk-react";
@@ -7,7 +7,7 @@ import PinnedMessagesModal from "./PinnedMessagesModal";
 import InviteModal from "./InviteModal";
 import ChannelInfoModal from "./ChannelInfoModal";
 import PollModal from "./PollModal";
-import { ChevronLeftIcon, BarChart3Icon } from "lucide-react";
+import { ChevronLeft, BarChart3 } from "lucide-react";
 
 const CustomChannelHeader = () => {
   const { channel } = useChannelStateContext();
@@ -58,13 +58,13 @@ const CustomChannelHeader = () => {
             window.dispatchEvent(new Event('popstate'));
           }}
         >
-          <ChevronLeftIcon className="size-5" />
+          <ChevronLeft className="size-5" />
         </button>
         <div className="channel-info">
           {channel.data?.private ? (
-            <LockIcon className="channel-icon-sm text-amber-400" />
+            <Lock className="channel-icon-sm text-amber-400" />
           ) : (
-            <HashIcon className="channel-icon-sm text-indigo-400" />
+            <Hash className="channel-icon-sm text-indigo-400" />
           )}
 
           {isDM && otherUser?.user?.image && (
@@ -83,14 +83,14 @@ const CustomChannelHeader = () => {
         <div className="header-divider"></div>
         
         <button className="header-action-btn" onClick={() => setShowMembers(true)}>
-          <UsersIcon className="size-4" />
+          <Users className="size-4" />
           <span>{memberCount}</span>
         </button>
       </div>
 
       <div className="header-right">
         <div className="search-bar-mini">
-          <SearchIcon className="size-3.5 text-zinc-500" />
+          <Search className="size-3.5 text-zinc-500" />
           <input type="text" placeholder="Search message..." />
         </div>
 
@@ -100,7 +100,7 @@ const CustomChannelHeader = () => {
             onClick={handleVideoCall}
             title="Start Video Call"
           >
-            <VideoIcon className="size-4" />
+            <Video className="size-4" />
           </button>
 
           <button 
@@ -108,15 +108,15 @@ const CustomChannelHeader = () => {
             onClick={() => setShowPollModal(true)} 
             title="Create Poll"
           >
-            <BarChart3Icon className="size-4" />
+            <BarChart3 className="size-4" />
           </button>
 
           <button className="action-icon-btn" onClick={handleShowPinned} title="Pinned Messages">
-            <PinIcon className="size-4" />
+            <Pin className="size-4" />
           </button>
 
           <button className="action-icon-btn" onClick={() => setShowChannelInfo(true)} title="Channel Info">
-            <InfoIcon className="size-4" />
+            <Info className="size-4" />
           </button>
 
           {channel.data?.private && (

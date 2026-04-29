@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router";
 import { useChatContext } from "stream-chat-react";
 import * as Sentry from "@sentry/react";
 import toast from "react-hot-toast";
-import { AlertCircleIcon, HashIcon, LockIcon, UsersIcon, XIcon } from "lucide-react";
+import { AlertCircle, Hash, Lock, Users, X } from "lucide-react";
 
 const CreateChannelModal = ({ onClose }) => {
   const [channelName, setChannelName] = useState("");
@@ -145,7 +145,7 @@ const CreateChannelModal = ({ onClose }) => {
         <div className="create-channel-modal__header">
           <h2>Create a channel</h2>
           <button onClick={onClose} className="create-channel-modal__close">
-            <XIcon className="w-5 h-5" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 

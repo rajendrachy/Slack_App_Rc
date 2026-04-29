@@ -1,4 +1,4 @@
-import { XIcon } from "lucide-react";
+import { X } from "lucide-react";
 
 function MembersModal({ members, onClose }) {
   return (
@@ -8,7 +8,7 @@ function MembersModal({ members, onClose }) {
         <div className="create-channel-modal__header">
           <h2>Channel Members</h2>
           <button onClick={onClose} className="create-channel-modal__close">
-            <XIcon className="w-5 h-5" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 

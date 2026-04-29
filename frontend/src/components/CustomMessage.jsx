@@ -5,7 +5,7 @@ import {
   useChannelActionContext
 } from "stream-chat-react";
 import PollMessage from "./PollMessage";
-import { Share2Icon } from "lucide-react";
+import { Share2 } from "lucide-react";
 
 const CustomMessage = (props) => {
   const { message } = useMessageContext();
@@ -46,7 +46,7 @@ export const CustomMessageActions = (props) => {
         onClick={() => setOpenShareModal(message)}
         title="Share message"
       >
-        <Share2Icon className="size-4" />
+        <Share2 className="size-4" />
       </button>
       <MessageOptions {...props} />
     </div>

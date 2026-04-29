@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { XIcon, Share2Icon, SearchIcon, SendIcon } from "lucide-react";
+import { X, Share2, Search, Send } from "lucide-react";
 import { useChatContext } from "stream-chat-react";
 import toast from "react-hot-toast";
 
@@ -64,17 +64,17 @@ const ShareModal = ({ message, onClose }) => {
       <div className="create-channel-modal">
         <div className="create-channel-modal__header">
           <div className="flex items-center gap-2">
-            <Share2Icon className="size-5 text-primary" />
+            <Share2 className="size-5 text-primary" />
             <h2>Share Message</h2>
           </div>
           <button onClick={onClose} className="create-channel-modal__close">
-            <XIcon className="size-5" />
+            <X className="size-5" />
           </button>
         </div>
 
         <div className="create-channel-modal__form">
           <div className="search-bar-mini w-full mb-4 !flex">
-            <SearchIcon className="size-4 text-zinc-500 mr-2" />
+            <Search className="size-4 text-zinc-500 mr-2" />
             <input 
               type="text" 
               placeholder="Search channels or people..." 

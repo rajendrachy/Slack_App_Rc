@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { XIcon, ShieldCheckIcon, UserIcon, UsersIcon, EyeOffIcon, GlobeIcon } from "lucide-react";
+import { X, ShieldCheck, User, Users, EyeOff, Globe } from "lucide-react";
 import { useChatContext } from "stream-chat-react";
 import toast from "react-hot-toast";
 
@@ -72,11 +72,11 @@ const ManageAccountModal = ({ onClose }) => {
       <div className="create-channel-modal">
         <div className="create-channel-modal__header !pb-0 border-none">
           <div className="flex items-center gap-2">
-            <ShieldCheckIcon className="size-5 text-primary" />
+            <ShieldCheck className="size-5 text-primary" />
             <h2>Account & Social</h2>
           </div>
           <button onClick={onClose} className="create-channel-modal__close">
-            <XIcon className="size-5" />
+            <X className="size-5" />
           </button>
         </div>
 
@@ -103,7 +103,7 @@ const ManageAccountModal = ({ onClose }) => {
                   {client.user.image ? (
                     <img src={client.user.image} className="size-full rounded-full object-cover" alt="" />
                   ) : (
-                    <UserIcon className="size-6 text-primary" />
+                    <User className="size-6 text-primary" />
                   )}
                 </div>
                 <div>
@@ -126,7 +126,7 @@ const ManageAccountModal = ({ onClose }) => {
                       className="hidden"
                     />
                     <div className="radio-content">
-                      <GlobeIcon className="size-5 mt-1" />
+                      <Globe className="size-5 mt-1" />
                       <div>
                         <div className="radio-title">Everyone / Anyone</div>
                         <div className="radio-description">Your profile is visible to everyone.</div>
@@ -145,7 +145,7 @@ const ManageAccountModal = ({ onClose }) => {
                       className="hidden"
                     />
                     <div className="radio-content">
-                      <UsersIcon className="size-5 mt-1" />
+                      <Users className="size-5 mt-1" />
                       <div>
                         <div className="radio-title">Friends</div>
                         <div className="radio-description">Only your friends can see you.</div>
@@ -164,7 +164,7 @@ const ManageAccountModal = ({ onClose }) => {
                       className="hidden"
                     />
                     <div className="radio-content">
-                      <EyeOffIcon className="size-5 mt-1" />
+                      <EyeOff className="size-5 mt-1" />
                       <div>
                         <div className="radio-title">No one</div>
                         <div className="radio-description">Your profile is completely hidden.</div>
@@ -185,7 +185,7 @@ const ManageAccountModal = ({ onClose }) => {
                   onKeyUp={(e) => e.key === 'Enter' && handleSearchUsers()}
                   className="form-input !pl-10"
                 />
-                <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-zinc-500" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-zinc-500" />
                 <button 
                   onClick={handleSearchUsers}
                   className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-white text-[10px] px-2 py-1 rounded font-bold"
@@ -226,7 +226,7 @@ const ManageAccountModal = ({ onClose }) => {
                       <div key={friendId} className="flex items-center gap-1 bg-zinc-800 px-2 py-1 rounded-full text-[10px] text-zinc-300">
                          <span>{friendId}</span>
                          <button onClick={() => handleToggleFriend(friendId)} className="hover:text-red-400">
-                           <XIcon className="size-2.5" />
+                           <X className="size-2.5" />
                          </button>
                       </div>
                     ))}

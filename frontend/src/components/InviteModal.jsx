@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useChatContext } from "stream-chat-react";
-import { XIcon } from "lucide-react";
+import { X, Users } from "lucide-react";
 
 const InviteModal = ({ channel, onClose }) => {
   const { client } = useChatContext();
@@ -55,11 +55,11 @@ const InviteModal = ({ channel, onClose }) => {
         {/* HEADER */}
         <div className="create-channel-modal__header">
           <div className="flex items-center gap-2">
-            <UsersIcon className="size-5 text-primary" />
+            <Users className="size-5 text-primary" />
             <h2>Invite Users</h2>
           </div>
           <button onClick={onClose} className="create-channel-modal__close">
-            <XIcon className="size-5" />
+            <X className="size-5" />
           </button>
         </div>
 

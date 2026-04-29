@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { XIcon, PlusIcon, TrashIcon, BarChart3Icon } from "lucide-react";
+import { X, Plus, Trash, BarChart3 } from "lucide-react";
 import { useChatContext } from "stream-chat-react";
 import toast from "react-hot-toast";
 
@@ -67,11 +67,11 @@ const PollModal = ({ channel, onClose }) => {
       <div className="create-channel-modal">
         <div className="create-channel-modal__header">
           <div className="flex items-center gap-2">
-            <BarChart3Icon className="size-5 text-primary" />
+            <BarChart3 className="size-5 text-primary" />
             <h2>Create a Poll</h2>
           </div>
           <button onClick={onClose} className="create-channel-modal__close">
-            <XIcon className="size-5" />
+            <X className="size-5" />
           </button>
         </div>
 
@@ -108,7 +108,7 @@ const PollModal = ({ channel, onClose }) => {
                       onClick={() => handleRemoveOption(index)}
                       className="p-2 text-zinc-500 hover:text-red-400 transition-colors"
                     >
-                      <TrashIcon className="size-4" />
+                      <Trash className="size-4" />
                     </button>
                   )}
                 </div>
@@ -121,7 +121,7 @@ const PollModal = ({ channel, onClose }) => {
                 onClick={handleAddOption}
                 className="mt-2 flex items-center gap-2 text-sm text-primary hover:underline font-medium"
               >
-                <PlusIcon className="size-4" />
+                <Plus className="size-4" />
                 <span>Add Option</span>
               </button>
             )}

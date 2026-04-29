@@ -1,4 +1,4 @@
-import { HashIcon, LockIcon } from "lucide-react";
+import { Hash, Lock } from "lucide-react";
 
 const CustomChannelPreview = ({ channel, setActiveChannel, activeChannel }) => {
   const isActive = activeChannel && activeChannel.id === channel.id;
@@ -15,9 +15,9 @@ const CustomChannelPreview = ({ channel, setActiveChannel, activeChannel }) => {
     >
       <div className="icon-wrapper">
         {channel.data?.private ? (
-          <LockIcon className="size-3.5" />
+          <Lock className="size-3.5" />
         ) : (
-          <HashIcon className="size-3.5" />
+          <Hash className="size-3.5" />
         )}
       </div>
       <span className="channel-name-text">{channel.data.id}</span>
