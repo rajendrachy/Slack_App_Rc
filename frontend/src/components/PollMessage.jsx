@@ -13,8 +13,8 @@ const PollMessage = () => {
   const [votes, setVotes] = useState(pollData.votes || []);
   const [isVoting, setIsVoting] = useState(false);
 
-  const totalVotes = votes.reduce((acc, curr) => acc + curr.length, 0);
-  const userHasVoted = votes.some(voters => voters.includes(client.user.id));
+  const totalVotes = Array.isArray(votes) ? votes.reduce((acc, curr) => acc + (Array.isArray(curr) ? curr.length : 0), 0) : 0;
+  const userHasVoted = Array.isArray(votes) && votes.some(voters => Array.isArray(voters) && voters.includes(client.user?.id));
 
   const handleVote = async (optionIndex) => {
     if (isVoting) return;
@@ -63,9 +63,9 @@ const PollMessage = () => {
 
       <div className="flex flex-col gap-3">
         {pollData.options.map((option, index) => {
-          const optionVotes = votes[index]?.length || 0;
+          const optionVotes = Array.isArray(votes?.[index]) ? votes[index].length : 0;
           const percentage = totalVotes === 0 ? 0 : Math.round((optionVotes / totalVotes) * 100);
-          const isSelected = votes[index]?.includes(client.user.id);
+          const isSelected = Array.isArray(votes?.[index]) && votes[index].includes(client.user?.id);
 
           return (
             <button

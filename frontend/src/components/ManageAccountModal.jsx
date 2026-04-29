@@ -10,7 +10,7 @@ const ManageAccountModal = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState("privacy"); // "privacy" or "friends"
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [friends, setFriends] = useState(client.user?.friends || []);
+  const [friends, setFriends] = useState(Array.isArray(client.user?.friends) ? client.user.friends : []);
 
   const handleUpdatePrivacy = async (newPrivacy) => {
     setIsUpdating(true);
@@ -49,10 +49,10 @@ const ManageAccountModal = ({ onClose }) => {
   };
 
   const handleToggleFriend = async (userId) => {
-    const isFriend = friends.includes(userId);
+    const isFriend = Array.isArray(friends) && friends.includes(userId);
     const newFriends = isFriend 
       ? friends.filter(id => id !== userId)
-      : [...friends, userId];
+      : [...(Array.isArray(friends) ? friends : []), userId];
     
     try {
       await client.upsertUser({
