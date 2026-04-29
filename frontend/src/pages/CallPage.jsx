@@ -90,15 +90,43 @@ const CallPage = () => {
 };
 
 const CallContent = () => {
-  const { useCallCallingState } = useCallStateHooks();
-
+  const { useCallCallingState, useCallRecordingState } = useCallStateHooks();
   const callingState = useCallCallingState();
+  const { isRecordingInProgress } = useCallRecordingState();
   const navigate = useNavigate();
+  
+  const [recordingSeconds, setRecordingSeconds] = useState(0);
+
+  useEffect(() => {
+    let interval;
+    if (isRecordingInProgress) {
+      interval = setInterval(() => {
+        setRecordingSeconds((prev) => prev + 1);
+      }, 1000);
+    } else {
+      setRecordingSeconds(0);
+    }
+    return () => clearInterval(interval);
+  }, [isRecordingInProgress]);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   if (callingState === CallingState.LEFT) return navigate("/");
 
   return (
     <StreamTheme>
+      <div className="absolute top-4 left-4 z-50 flex items-center gap-2">
+        {isRecordingInProgress && (
+          <div className="flex items-center gap-2 bg-red-600 text-white px-3 py-1.5 rounded-full animate-pulse shadow-lg border border-red-500">
+            <div className="size-2 bg-white rounded-full" />
+            <span className="text-xs font-bold tracking-tight">REC {formatTime(recordingSeconds)}</span>
+          </div>
+        )}
+      </div>
       <SpeakerLayout />
       <CallControls />
     </StreamTheme>

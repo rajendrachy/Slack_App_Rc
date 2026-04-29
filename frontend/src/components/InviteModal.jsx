@@ -54,60 +54,81 @@ const InviteModal = ({ channel, onClose }) => {
       <div className="create-channel-modal">
         {/* HEADER */}
         <div className="create-channel-modal__header">
-          <h2>Invite Users</h2>
+          <div className="flex items-center gap-2">
+            <UsersIcon className="size-5 text-primary" />
+            <h2>Invite Users</h2>
+          </div>
           <button onClick={onClose} className="create-channel-modal__close">
-            <XIcon className="size-4" />
+            <XIcon className="size-5" />
           </button>
         </div>
 
         {/* CONTENT */}
         <div className="create-channel-modal__form">
-          {isLoadingUsers && <p>Loading users...</p>}
-          {error && <p className="form-error">{error}</p>}
-          {users.length === 0 && !isLoadingUsers && <p>No users found</p>}
+          {isLoadingUsers ? (
+            <div className="flex flex-col items-center justify-center py-8 gap-3">
+              <div className="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+              <p className="text-sm text-zinc-500">Searching for colleagues...</p>
+            </div>
+          ) : error ? (
+            <div className="form-error mb-4">{error}</div>
+          ) : users.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-zinc-500 text-sm">Everyone is already here!</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2 max-h-80 overflow-y-auto pr-1">
+              {users.map((user) => {
+                const isChecked = selectedMembers.includes(user.id);
 
-          {users.length > 0 &&
-            users.map((user) => {
-              const isChecked = selectedMembers.includes(user.id);
-
-              return (
-                <label
-                  key={user.id}
-                  className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all shadow-sm bg-white hover:bg-[#f5f3ff] border-2 ${
-                    isChecked ? "border-[#611f69] bg-[#f3e6fa]" : "border-gray-200"
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    className="checkbox checbox-primay checkbox-sm accent-[#611f69]"
-                    value={user.id}
-                    onChange={(e) => {
-                      if (e.target.checked) setSelectedMembers([...selectedMembers, user.id]);
-                      else setSelectedMembers(selectedMembers.filter((id) => id !== user.id));
-                    }}
-                  />
-
-                  {user.image ? (
-                    <img
-                      src={user.image}
-                      alt={user.name}
-                      className="size-9 rounded-full object-cover border border-gray-300"
+                return (
+                  <label
+                    key={user.id}
+                    className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all border-2 ${
+                      isChecked 
+                        ? "border-primary bg-primary/5 shadow-sm" 
+                        : "border-zinc-800/50 bg-zinc-900/30 hover:bg-zinc-800/60"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="size-4 rounded border-zinc-700 bg-zinc-900 text-primary focus:ring-primary accent-primary"
+                      value={user.id}
+                      checked={isChecked}
+                      onChange={(e) => {
+                        if (e.target.checked) setSelectedMembers([...selectedMembers, user.id]);
+                        else setSelectedMembers(selectedMembers.filter((id) => id !== user.id));
+                      }}
                     />
-                  ) : (
-                    <div className="size-9 rounded-full bg-gray-300 flex items-center justify-center text-white font-bold text-lg">
-                      {(user.name || user.id).charAt(0).toUpperCase()}
-                    </div>
-                  )}
 
-                  <span className="font-medium text-[#611f69] text-base">
-                    {user.name || user.id}
-                  </span>
-                </label>
-              );
-            })}
+                    {user.image ? (
+                      <img
+                        src={user.image}
+                        alt={user.name}
+                        className="size-10 rounded-lg object-cover border border-zinc-800"
+                      />
+                    ) : (
+                      <div className="size-10 rounded-lg bg-zinc-800 flex items-center justify-center text-zinc-400 font-bold text-lg border border-zinc-700">
+                        {(user.name || user.id).charAt(0).toUpperCase()}
+                      </div>
+                    )}
+
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-white text-sm">
+                        {user.name || user.id}
+                      </span>
+                      <span className="text-[10px] text-zinc-500 uppercase tracking-tight">
+                        {user.online ? 'Online' : 'Offline'}
+                      </span>
+                    </div>
+                  </label>
+                );
+              })}
+            </div>
+          )}
 
           {/* ACTIONS */}
-          <div className="create-channel-modal__actions mt-4">
+          <div className="create-channel-modal__actions pt-4 border-t border-zinc-800/50">
             <button className="btn btn-secondary" onClick={onClose} disabled={isInviting}>
               Cancel
             </button>
@@ -116,11 +137,14 @@ const InviteModal = ({ channel, onClose }) => {
               onClick={handleInvite}
               disabled={!selectedMembers.length || isInviting}
             >
-              {isInviting ? "Inviting..." : "Invite"}
+              {isInviting ? "Adding..." : `Invite ${selectedMembers.length > 0 ? selectedMembers.length : ''} Members`}
             </button>
           </div>
         </div>
       </div>
+      <style>{`
+        .accent-primary { accent-color: var(--primary); }
+      `}</style>
     </div>
   );
 };

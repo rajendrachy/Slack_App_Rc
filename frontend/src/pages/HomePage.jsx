@@ -14,14 +14,19 @@ import {
   Window,
 } from "stream-chat-react";
 
-import { HashIcon, PlusIcon, UsersIcon } from "lucide-react";
+import { HashIcon, PlusIcon, UsersIcon, SettingsIcon } from "lucide-react";
 import CreateChannelModal from "../components/CreateChannelModal";
 import CustomChannelPreview from "../components/CustomChannelPreview";
 import UsersList from "../components/UsersList";
 import CustomChannelHeader from "../components/CustomChannelHeader";
+import ManageAccountModal from "../components/ManageAccountModal";
+import ShareModal from "../components/ShareModal";
+import CustomMessage, { CustomMessageActions } from "../components/CustomMessage";
 
 const HomePage = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const [shareMessage, setShareMessage] = useState(null);
   const [activeChannel, setActiveChannel] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -92,9 +97,18 @@ const HomePage = () => {
                   {loading && <div className="px-6 py-2 text-xs text-zinc-500">Syncing...</div>}
                   <div className="channels-list-v2">{children}</div>
 
-                  <div className="section-title section-header">
-                    <UsersIcon className="size-3.5 inline mr-2" />
-                    <span>Direct Messages</span>
+                  <div className="section-title section-header flex justify-between items-center pr-2">
+                    <div className="flex items-center">
+                      <UsersIcon className="size-3.5 inline mr-2" />
+                      <span>Direct Messages</span>
+                    </div>
+                    <button 
+                      onClick={() => setIsAccountModalOpen(true)}
+                      className="text-zinc-500 hover:text-white transition-colors"
+                      title="Manage Account"
+                    >
+                      <SettingsIcon className="size-3.5" />
+                    </button>
                   </div>
                   <UsersList activeChannel={activeChannel} />
                 </>
@@ -104,7 +118,11 @@ const HomePage = () => {
         </div>
 
         <div className="main-content-premium">
-          <Channel channel={activeChannel}>
+          <Channel 
+            channel={activeChannel}
+            Message={(props) => <CustomMessage {...props} setOpenShareModal={setShareMessage} />}
+            MessageOptions={(props) => <CustomMessageActions {...props} setOpenShareModal={setShareMessage} />}
+          >
             <Window>
               <CustomChannelHeader />
               <MessageList />
@@ -115,6 +133,8 @@ const HomePage = () => {
         </div>
 
         {isCreateModalOpen && <CreateChannelModal onClose={() => setIsCreateModalOpen(false)} />}
+        {isAccountModalOpen && <ManageAccountModal onClose={() => setIsAccountModalOpen(false)} />}
+        {shareMessage && <ShareModal message={shareMessage} onClose={() => setShareMessage(null)} />}
       </Chat>
     </div>
   );

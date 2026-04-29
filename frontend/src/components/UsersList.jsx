@@ -13,7 +13,18 @@ const UsersList = ({ activeChannel }) => {
     if (!client?.user) return;
 
     const response = await client.queryUsers(
-      { id: { $ne: client.user.id } },
+      { 
+        $and: [
+          { id: { $ne: client.user.id } },
+          { 
+            $or: [
+              { privacy_view: 'everyone' },
+              { privacy_view: { $exists: false } },
+              { privacy_view: 'friends', friends: { $in: [client.user.id] } }
+            ]
+          }
+        ]
+      },
       { name: 1 },
       { limit: 20 }
     );

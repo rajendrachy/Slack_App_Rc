@@ -39,41 +39,18 @@ const PollModal = ({ channel, onClose }) => {
 
     setIsSubmitting(true);
     try {
-      // In Stream Chat v13, we can use the native poll feature if enabled, 
-      // but to ensure it works immediately we'll send a formatted message 
-      // that the UI can eventually render as a poll.
-      // For now, let's try the native way if possible, or a custom one.
-      
       const pollData = {
-        name: question,
-        options: options.map(opt => ({ text: opt })),
-        allow_user_suggested_options: false,
-        allow_answers: true,
+        question,
+        options,
+        votes: options.map(() => [])
       };
 
-      // Native poll creation (requires Polls to be enabled in Stream Dashboard)
-      // If this fails, we fall back to a custom message format
-      try {
-        const response = await client.createPoll(pollData);
-        await channel.sendMessage({
-          text: `📊 New Poll: ${question}`,
-          attachments: [{
-            type: 'poll',
-            poll_id: response.poll.id
-          }]
-        });
-      } catch (err) {
-        console.warn("Native polls not enabled, falling back to custom format", err);
-        // Fallback: Custom message with poll data in attachments
-        await channel.sendMessage({
-          text: `📊 **POLL: ${question}**\n\n${options.map((opt, i) => `${i + 1}. ${opt}`).join('\n')}`,
-          poll_data: {
-            question,
-            options,
-            votes: options.map(() => [])
-          }
-        });
-      }
+      // We send the poll data as a custom field in the message
+      // This will be handled by our PollMessage component
+      await channel.sendMessage({
+        text: `📊 **POLL: ${question}**`,
+        poll_data: pollData
+      });
 
       toast.success("Poll created successfully!");
       onClose();
