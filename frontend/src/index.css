@@ -41,7 +41,7 @@ body {
   color: var(--text-main) !important;
   font-family: 'Outfit', sans-serif !important;
   overflow: hidden !important;
-  height: 100vh !important;
+  height: 100dvh !important;
   width: 100vw !important;
 }
 
@@ -49,7 +49,7 @@ body {
 .flex-row-fill {
   display: flex !important;
   flex-direction: row !important;
-  height: 100vh !important;
+  height: 100dvh !important;
   width: 100vw !important;
 }
 
@@ -92,6 +92,9 @@ body {
     left: 0;
     height: 100%;
     z-index: 5;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent clipping issues */
   }
 
   /* When a channel is active, hide the sidebar by translating it */

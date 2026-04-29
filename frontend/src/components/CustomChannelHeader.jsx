@@ -6,7 +6,8 @@ import MembersModal from "./MembersModal";
 import PinnedMessagesModal from "./PinnedMessagesModal";
 import InviteModal from "./InviteModal";
 import ChannelInfoModal from "./ChannelInfoModal";
-import { ChevronLeftIcon } from "lucide-react";
+import PollModal from "./PollModal";
+import { ChevronLeftIcon, BarChart3Icon } from "lucide-react";
 
 const CustomChannelHeader = () => {
   const { channel } = useChannelStateContext();
@@ -18,6 +19,7 @@ const CustomChannelHeader = () => {
   const [showMembers, setShowMembers] = useState(false);
   const [showPinnedMessages, setShowPinnedMessages] = useState(false);
   const [showChannelInfo, setShowChannelInfo] = useState(false);
+  const [showPollModal, setShowPollModal] = useState(false);
   const [pinnedMessages, setPinnedMessages] = useState([]);
 
   const otherUser = Object.values(channel.state.members).find(
@@ -101,6 +103,14 @@ const CustomChannelHeader = () => {
             <VideoIcon className="size-4" />
           </button>
 
+          <button 
+            className="action-icon-btn poll-btn" 
+            onClick={() => setShowPollModal(true)} 
+            title="Create Poll"
+          >
+            <BarChart3Icon className="size-4" />
+          </button>
+
           <button className="action-icon-btn" onClick={handleShowPinned} title="Pinned Messages">
             <PinIcon className="size-4" />
           </button>
@@ -135,6 +145,13 @@ const CustomChannelHeader = () => {
         <ChannelInfoModal
           channel={channel}
           onClose={() => setShowChannelInfo(false)}
+        />
+      )}
+
+      {showPollModal && (
+        <PollModal
+          channel={channel}
+          onClose={() => setShowPollModal(false)}
         />
       )}
 
@@ -267,6 +284,17 @@ const CustomChannelHeader = () => {
           border-color: rgba(99, 102, 241, 0.4);
           color: white;
           box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+        .poll-btn {
+          background: rgba(168, 85, 247, 0.1);
+          border-color: rgba(168, 85, 247, 0.2);
+          color: #a855f7;
+        }
+        .poll-btn:hover {
+          background: rgba(168, 85, 247, 0.2);
+          border-color: rgba(168, 85, 247, 0.4);
+          color: white;
+          box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
         }
         .invite-pill {
           background: var(--primary);

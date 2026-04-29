@@ -21,6 +21,32 @@
   display: flex;
   width: 100%;
   height: 100%;
+  min-height: 0;
+}
+
+/* Ensure Stream Chat internal components fill height */
+.str-chat {
+  height: 100% !important;
+}
+
+.str-chat-channel {
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.str-chat__main-panel {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0;
+}
+
+.str-chat__container {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0;
 }
 
 /* Sidebar Styling */
@@ -197,8 +223,15 @@
 }
 
 .str-chat__input-flat {
-  padding: 1.5rem !important;
+  padding: 1rem !important;
   background-color: var(--bg-main) !important;
+}
+
+@media (max-width: 768px) {
+  .str-chat__input-flat {
+    padding: 0.75rem !important;
+    padding-bottom: env(safe-area-inset-bottom, 0.75rem) !important;
+  }
 }
 
 .str-chat__input-flat-wrapper {
